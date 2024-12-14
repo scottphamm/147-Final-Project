@@ -19,7 +19,7 @@
                     <img src="{{ url_for('static', filename='images/basil.jpeg') }}" class="img-fluid rounded mb-3" alt="Basil plant" style="max-width: 400px;">
                     <h3 class="text-success mt-3" id="plant-name">Basil Plant</h3>
                 </div>
-                <!-- <p class="lead" id="Main-Content">Content found: {{content}}</p> -->
+                <p class="lead" id="status-bar" style="color: red; font-weight: bold;">Checking plant status...</p>
             </div>
             <div class="col">
                 <div class="text-left mb-4">
@@ -30,6 +30,31 @@
             </div>
         </div>
     </div>
+
+    <script>
+        async function updateStatusBar() {
+            try {
+                const response = await fetch('/get-data');
+                const data = await response.json();
+
+                const latestSoilMoisture = data[data.length - 1][2];
+                const statusBar = document.getElementById('status-bar');
+
+                if (latestSoilMoisture > 300) {
+                    statusBar.textContent = "Water Needed: Soil moisture is low!";
+                    statusBar.style.color = "red";
+                } else {
+                    statusBar.textContent = "Plant is healthy: Soil moisture is sufficient.";
+                    statusBar.style.color = "green";
+                }
+            } catch (error) {
+                console.error('Error updating the status bar:', error);
+            }
+        }
+
+        // Set an interval to update the status bar every 5 seconds
+        setInterval(updateStatusBar, 5000);
+    </script>
 
     <!-- Bootstrap JS and dependencies via CDN -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
