@@ -40,7 +40,7 @@
                 const latestSoilMoisture = data[data.length - 1][2];
                 const statusBar = document.getElementById('status-bar');
 
-                if (latestSoilMoisture > 300) {
+                if (latestSoilMoisture > 250) {
                     statusBar.textContent = "Water Needed: Soil moisture is low!";
                     statusBar.style.color = "red";
                 } else {
