@@ -57,7 +57,7 @@ def clean_db():
 def create_interactive_plot():
     conn = sqlite3.connect('plant_data.db')
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM sensor_data ORDER BY timestamp DESC LIMIT 30')
+    cursor.execute('SELECT * FROM sensor_data ORDER BY timestamp DESC LIMIT 10')
     rows = cursor.fetchall()
     conn.close()
 
@@ -108,7 +108,6 @@ def create_interactive_plot():
 
 
 def create_static_plot():
-    print("I AM HERE")
     conn = sqlite3.connect('plant_data.db')
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM sensor_data')
@@ -165,7 +164,6 @@ def get_data():
 
 @app.route('/sensor-data', methods=['POST'])
 def receive_sensor_data():
-    print("here")
     data = request.get_json()
 
     soil_moisture = data.get('soil_moisture')
