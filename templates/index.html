@@ -5,6 +5,9 @@
     <title>Flask and Bootstrap</title>
     <!-- Bootstrap CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Plotly JS -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
@@ -13,8 +16,8 @@
         <div class="row align-items-center">
             <div class="col">
                 <div class="text-left mb-4">
-                    <img src="{{ url_for('static', filename='images/monstera-image.jpg') }}" class="img-fluid rounded mb-3" alt="Monstera Deliciosa plant" style="max-width: 200px;">
-                    <h3 class="text-success mt-3" id="plant-name">Monstera Deliciosa</h3>
+                    <img src="{{ url_for('static', filename='images/basil.jpeg') }}" class="img-fluid rounded mb-3" alt="Basil plant" style="max-width: 200px;">
+                    <h3 class="text-success mt-3" id="plant-name">Basil Plant</h3>
                 </div>
                 <p class="lead" id="Main-Content">Content found: {{content}}</p>
             </div>
@@ -22,53 +25,13 @@
                 <div class="text-left mb-4">
                     <h3 class="text-primary mt-3" id="graph-header">Plant Health Graph</h3>
                 </div>
-                <p class="lead" id="graph-content">Graph content found: {{graph_content | safe}}</p>
+                <!-- Render the graph content passed from Flask -->
+                <div id="plot">{{ graph_content | safe }}</div>
             </div>
         </div>
     </div>
 
-    <script>
-        $.ajax({
-            url: 'http://169.234.44.62:8080/get-data',
-            method: 'GET',
-            dataType: 'json',
-            success: function(data) {
-                console.log('AJAX success:', data);
-                // data is array of array [[]]
-                $('#Main-Content').html(format_data(data));
-            },
-            error: function(xhr, status, error) {
-              console.error('AJAX error:', error);
-            }
-          });
-
-
-        function format_data(data) {
-            let nested_data = data[0];
-
-            let soilMoisture = nested_data[2];
-            let temperature = nested_data[3];
-            let light = nested_data[4];
-            let humidity = nested_data[5];
-
-            console.log(soilMoisture, temperature, light, humidity);
-
-            let formatted_data = `
-                <p>Soil Moisture: ${soilMoisture}</p>
-                <p>Temperature: ${temperature}</p>
-                <p>Light: ${light}</p> 
-                <p>Humidity: ${humidity}</p>
-            `;
-
-            return formatted_data;
-        }
-    </script>
-
-
     <!-- Bootstrap JS and dependencies via CDN -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- jQuery via CDN -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 </body>
 </html>
