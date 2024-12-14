@@ -9,19 +9,22 @@
 </head>
 <body>
     <div class="container">
-
-        
         <h1 class="display-2">Sprout Sense</h1>
-
-        <div class="text-left mb-4">
-            <img src="{{ url_for('static', filename='images/monstera-image.jpg') }}" class="img-fluid rounded mb-3" alt="Monstera Deliciosa plant" style="max-width: 200px;">
-            <h3 class="text-success">Monstera Deliciosa</h3>
+        <div class="row align-items-center">
+            <div class="col">
+                <div class="text-left mb-4">
+                    <img src="{{ url_for('static', filename='images/monstera-image.jpg') }}" class="img-fluid rounded mb-3" alt="Monstera Deliciosa plant" style="max-width: 200px;">
+                    <h3 class="text-success mt-3" id="plant-name">Monstera Deliciosa</h3>
+                </div>
+                <p class="lead" id="Main-Content">Content found: {{content}}</p>
+            </div>
+            <div class="col">
+                <div class="text-left mb-4">
+                    <h3 class="text-primary mt-3" id="graph-header">Plant Health Graph</h3>
+                </div>
+                <p class="lead" id="graph-content">Graph content found: {{graph_content | safe}}</p>
+            </div>
         </div>
-
-        <p class="lead" id="Main-Content">Content found: {{content}}</p>
-
-
-
     </div>
 
     <script>
